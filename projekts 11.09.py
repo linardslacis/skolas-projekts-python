@@ -9,10 +9,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-z= float
-print(type(z))
 
-pieprasijumus1 = np.array([z, 7, 20])
+num = int(input("Enter an integer: "))
+print("The entered number is:", num)
+
+#float= z
+#print(type(z))
+#input(z)
+
+pieprasijumus1 = np.array([0, 7, 20])
 cena1 = np.array([0, 250, 300])
 
 piedavajums2 = np.array([10, 7, 20])
