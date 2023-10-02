@@ -10,18 +10,21 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-num = int(input("Enter an integer: "))
-print("The entered number is:", num)
+x1 = float(input("Ievadi pieprasījumu: "))
+y1 = float(input("Un tam atbilstošo cenu: "))
+#print("The entered number is:", x1)
+x2 = float(input("Ievadi pieprasījumu: "))
+y2 = float(input("Un tam atbilstošo cenu: "))
 
-#float= z
+#float= z    uztaisit taisnes vienadojumu un pagarinat taisni
 #print(type(z))
 #input(z)
 
-pieprasijumus1 = np.array([0, 7, 20])
-cena1 = np.array([0, 250, 300])
+pieprasijumus1 = np.array([x1, x2])
+cena1 = np.array([y1, y2])
 
-piedavajums2 = np.array([10, 7, 20])
-cena2 = np.array([0, 250, 300])
+piedavajums2 = np.array([10, 7])
+cena2 = np.array([0, 250])
 
 
 
