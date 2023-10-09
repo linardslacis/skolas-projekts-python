@@ -40,8 +40,8 @@ def Piedavajuma_likne(x3, y3, x4, y4):
 
 likne2 = Piedavajuma_likne(x3, y3, x4, y4)
 print("Piedāvājuma liknes vienādojums",likne2)
-xkr = (b2 - b1)/(k1 - k2)
-print("xkrus", xkr)
+#xkr = (b2 - b1)/(k1 - k2)
+#print("xkrus", xkr)
 
 
 pieprasijumus1 = np.array([x1, x2])
