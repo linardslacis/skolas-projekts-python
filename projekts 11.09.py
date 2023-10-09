@@ -23,6 +23,15 @@ y2 = float(input("Un tam atbilstošo cenu: "))
 pieprasijumus1 = np.array([x1, x2])
 cena1 = np.array([y1, y2])
 
+#jauns
+
+def Pieprasijuma_likne(x1, y1, x2, y2):
+k=(y2-y1)/(x2-x1)
+b1=y1-k*x1
+return f"y = {k}x + {b1}"
+likne1 = Pieprasijuma_likne(x1, y1, x2, y2)
+print("Pieprasijuma liknes vienadojums", )
+
 piedavajums2 = np.array([10, 7])
 cena2 = np.array([0, 250])
 
