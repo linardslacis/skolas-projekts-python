@@ -1,0 +1,69 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+def koeficientm(a11, a12, c11, c12):
+    m3 = (c12-c11)/(a12-a11)
+    b3 = c11-(a11*m3)
+    print("funkcija ir: ", m3, "x+", b3)
+    return m3, b3
+
+
+def krustpunkts(a4, b4, a8, b8):
+    if a4 == a8:
+        print("Liknes ir paralelas")
+        return None
+    x5 = (b8 - b4) / (a4 - a8)
+    y5 = a4 * x5 + b4
+    return x5, y5
+
+
+def paraginajums(k, h, g):
+    if k == 0:
+        return h
+    return h - g * k
+
+
+x11 = float(input("Ievadiet pirmo pieprasījuma punktu:"))
+y11 = float(input("Ievadiet atbilstošo cenu "))
+x12 = float(input("Ievadiet otro pieprasījuma punktu:"))
+y12 = float(input("Ievadiet atbilstošo cenu "))
+
+x21 = float(input("Ievadiet pirmo piedavājuma punktu:"))
+y21 = float(input("Ievadiet atbilstošo cenu "))
+x22 = float(input("Ievadiet otro piedavājuma punktu:"))
+y22 = float(input("Ievadiet atbilstošo cenu "))
+
+a1, b1 = koeficientm(x11, x12, y11, y12)
+print(a1, b1)
+
+a2, b2 = koeficientm(x21, x22, y21, y22)
+print(a2, b2)
+
+x, y = krustpunkts(a1, b1, a2, b2)
+print(x, y)
+
+
+xpoints1 = np.array([0, x12])
+ypoints1 = np.array([paraginajums(x11, y11, a1), y12])
+
+xpoints2 = np.array([0, x22])
+ypoints2 = np.array([paraginajums(x21, y21, a2), y22])
+
+xpoints3 = np.array([x, x, x])
+ypoints3 = np.array([y * 1.5, y, 0])
+
+plt.plot(xpoints1, ypoints1)
+plt.plot(xpoints2, ypoints2)
+plt.plot(xpoints3, ypoints3, marker='o')
+
+# grafika ipasibas
+plt.xlim(0, x * 1.5)
+plt.ylim(0, y * 1.5)
+plt.title("Pieprasījuma, piedāvājuma likne")
+plt.xlabel("Daudzums")
+plt.ylabel("Cena")
+plt.grid()
+plt.show()
+
+quit()
