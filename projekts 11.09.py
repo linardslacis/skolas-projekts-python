@@ -17,15 +17,10 @@ x2 = float(input("Ievadi pieprasījumu: "))
 y2 = float(input("Un tam atbilstošo cenu: "))
 x3 = float(input("Ievadi piedāvājumu: "))
 y3 = float(input("Un tam atbilstošo cenu: "))
-#print("The entered number is:", x1)
 x4 = float(input("Ievadi piedāvājumu: "))
 y4 = float(input("Un tam atbilstošo cenu: "))
 
 
-b1 = float
-b2 = float
-k1 = float
-k2 = float
 def Pieprasijuma_likne(x1, y1, x2, y2):
     k1=(y2-y1)/(x2-x1)
     b1=y1-k1*x1
