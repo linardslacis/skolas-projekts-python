@@ -5,7 +5,6 @@ import numpy as np
 def koeficientm(a11, a12, c11, c12):
     m3 = (c12-c11)/(a12-a11)
     b3 = c11-(a11*m3)
-    print("funkcija ir: ", m3, "x+", b3)
     return m3, b3
 
 
@@ -18,48 +17,58 @@ def krustpunkts(a4, b4, a8, b8):
     return x5, y5
 
 
-def paraginajums(k, h, g):
-    if k == 0:
+def pagarinajums_pa_kreisi(k, l1, h):
+    if l1 == 0:
         return h
-    return h - g * k
+    else:
+        return h - l1 * k
 
 
-x11 = float(input("Ievadiet pirmo pieprasījuma punktu:"))
+def pagarinajums_pa_labi(k, l1, h, xlim):
+    if l1 == 2 * xlim:
+        return h
+    else:
+        return h + (2 * xlim-l1) * k
+
+
+# punktu pieprasijums
+x11 = float(input("Ievadiet daudzumu pirmajam pieprasījuma punktam:"))
 y11 = float(input("Ievadiet atbilstošo cenu "))
-x12 = float(input("Ievadiet otro pieprasījuma punktu:"))
+x12 = float(input("Ievadiet daudzumu otrajam pieprasījuma punktam:"))
 y12 = float(input("Ievadiet atbilstošo cenu "))
 
-x21 = float(input("Ievadiet pirmo piedavājuma punktu:"))
+x21 = float(input("Ievadiet daudzumu pirmajam piedavājuma punktam:"))
 y21 = float(input("Ievadiet atbilstošo cenu "))
-x22 = float(input("Ievadiet otro piedavājuma punktu:"))
+x22 = float(input("Ievadiet daudzumu otrajam piedavājuma punktam:"))
 y22 = float(input("Ievadiet atbilstošo cenu "))
 
-a1, b1 = koeficientm(x11, x12, y11, y12)
-print(a1, b1)
+# koeficientu un krustpunktu aprekini
+k_pieprasijums, b_pieprasijums = koeficientm(x11, x12, y11, y12)
 
-a2, b2 = koeficientm(x21, x22, y21, y22)
-print(a2, b2)
+k_piedavajums, b_piedavajums = koeficientm(x21, x22, y21, y22)
 
-x, y = krustpunkts(a1, b1, a2, b2)
-print(x, y)
+x, y = krustpunkts(k_pieprasijums, b_pieprasijums, k_piedavajums, b_piedavajums)
 
+# funkciju punkti
+x_pieprasijums = np.array([0, x * 2])
+y_pieprasijums = np.array([pagarinajums_pa_kreisi(k_pieprasijums, x11, y11),
+                           pagarinajums_pa_labi(k_pieprasijums, x12, y12, x)])
 
-xpoints1 = np.array([0, x12])
-ypoints1 = np.array([paraginajums(x11, y11, a1), y12])
+x_piedavajums = np.array([0, x * 2])
+y_piedavajums = np.array([pagarinajums_pa_kreisi(k_piedavajums, x21, y21),
+                          pagarinajums_pa_labi(k_piedavajums, x22, y22, x)])
 
-xpoints2 = np.array([0, x22])
-ypoints2 = np.array([paraginajums(x21, y21, a2), y22])
+x_krustpunkts = np.array([x, x, x])
+y_krustpunkts = np.array([y * 2, y, 0])
 
-xpoints3 = np.array([x, x, x])
-ypoints3 = np.array([y * 1.5, y, 0])
-
-plt.plot(xpoints1, ypoints1)
-plt.plot(xpoints2, ypoints2)
-plt.plot(xpoints3, ypoints3, marker='o')
+# funkciju attelosana
+plt.plot(x_pieprasijums, y_pieprasijums)
+plt.plot(x_piedavajums, y_piedavajums)
+plt.plot(x_krustpunkts, y_krustpunkts, marker='o')
 
 # grafika ipasibas
-plt.xlim(0, x * 1.5)
-plt.ylim(0, y * 1.5)
+plt.xlim(0, x * 2)
+plt.ylim(0, y * 2)
 plt.title("Pieprasījuma, piedāvājuma likne")
 plt.xlabel("Daudzums")
 plt.ylabel("Cena")
