@@ -5,3 +5,4 @@ projekts skolas programmesanai
 3) Linards un Igors - kopīgi atrast uzdevumu piemērus, izveidot funkcijas, noteiktā punkta un cenas izmaiņas ievadi, aprēķināt elastību un izvadīt tās veidu.
 4) Darbā tiks izmantotas ekonomikas prezentācijas un Python.
 5) Darba plāns - 06.11 un 13.11 - izveidot funkcijas un cenu ievadi - 20.11 - brīvdiena(valsts svētki) - 27.11 - izveidot elastības aprēķinus un vēl atliek stunda, kurā jānosaka elastības veids un jaizvada ieteikums par cenas maiņu.
+6) Izveidot ievades parbaudi, lai lietotajs nevaretu ievadit zimes, burtus un vertibas < 0
