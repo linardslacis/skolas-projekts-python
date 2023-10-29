@@ -31,16 +31,33 @@ def pagarinajums_pa_labi(k, l1, h, xlim):
         return h + (2 * xlim-l1) * k
 
 
-# punktu pieprasijums
-x11 = float(input("Ievadiet daudzumu pirmajam pieprasījuma punktam:"))
-y11 = float(input("Ievadiet atbilstošo cenu "))
-x12 = float(input("Ievadiet daudzumu otrajam pieprasījuma punktam:"))
-y12 = float(input("Ievadiet atbilstošo cenu "))
+def parbaude(u):
+    while True:
+        if u < 0:
+            u = float(input("Ievadita vertiba ir mazaka par 0, ludzu, ievadiet vel reiz: "))
+        else:
+            break
+    return u
 
-x21 = float(input("Ievadiet daudzumu pirmajam piedavājuma punktam:"))
-y21 = float(input("Ievadiet atbilstošo cenu "))
-x22 = float(input("Ievadiet daudzumu otrajam piedavājuma punktam:"))
-y22 = float(input("Ievadiet atbilstošo cenu "))
+
+# punktu pieprasijums
+x11 = float(input("Ievadiet daudzumu pirmajam pieprasījuma punktam: "))
+x11 = parbaude(x11)
+y11 = float(input("Ievadiet atbilstošo cenu: "))
+y11 = parbaude(y11)
+x12 = float(input("Ievadiet daudzumu otrajam pieprasījuma punktam: "))
+x12 = parbaude(x12)
+y12 = float(input("Ievadiet atbilstošo cenu: "))
+y12 = parbaude(y12)
+
+x21 = float(input("Ievadiet daudzumu pirmajam piedavājuma punktam: "))
+x21 = parbaude(x21)
+y21 = float(input("Ievadiet atbilstošo cenu: "))
+y21 = parbaude(y21)
+x22 = float(input("Ievadiet daudzumu otrajam piedavājuma punktam: "))
+x22 = parbaude(x22)
+y22 = float(input("Ievadiet atbilstošo cenu: "))
+y22 = parbaude(y22)
 
 # koeficientu un krustpunktu aprekini
 k_pieprasijums, b_pieprasijums = koeficientm(x11, x12, y11, y12)
