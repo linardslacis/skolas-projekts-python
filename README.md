@@ -5,3 +5,6 @@ projekts skolas programmesanai
 3) Linards un Igors - kopīgi atrast uzdevumu piemērus un izveidot prgrammu
 4) Python un ekonomikas prezentācijas
 5) Darba plāns - 02.10 un 09.10 - atrast uzdeumu piemērus un izveidot datu ievadi un attēlot taisnes no tabulas uzdotajiem datiem.- 16.10 un 23.10 - izveidot aprēķinu līdzsvaram un to attēlot. - 30.10 - censties izveidot elastības noteikšanu ievadot procentuālo cenas pieaugumu.
+
+1) Ekonomikas piedāvājuma un pieprasījuma funkcijuelastība
+2)
