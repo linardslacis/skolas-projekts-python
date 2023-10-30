@@ -81,9 +81,10 @@ x_krustpunkts = np.array([x, x, x])
 y_krustpunkts = np.array([y * 2, y, 0])
 
 # funkciju attelosana
-plt.plot(x_pieprasijums, y_pieprasijums)
-plt.plot(x_piedavajums, y_piedavajums)
-plt.plot(x_krustpunkts, y_krustpunkts, marker='o')
+plt.plot(x_pieprasijums, y_pieprasijums, label="Pieprasijums")
+plt.plot(x_piedavajums, y_piedavajums, label="Piedavajums")
+plt.plot(x_krustpunkts, y_krustpunkts, marker='o', label="Lidzsvars")
+plt.legend(loc='upper center')
 
 # grafika ipasibas
 plt.xlim(0, x * 2)
