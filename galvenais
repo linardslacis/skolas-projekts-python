@@ -66,6 +66,8 @@ k_piedavajums, b_piedavajums = koeficientm(x21, x22, y21, y22)
 
 x, y = krustpunkts(k_pieprasijums, b_pieprasijums, k_piedavajums, b_piedavajums)
 
+print("Lidzsvara daudzums ir ", x, " vienibas, un atbilstosa cena ir ", y)
+
 # funkciju punkti
 x_pieprasijums = np.array([0, x * 2])
 y_pieprasijums = np.array([pagarinajums_pa_kreisi(k_pieprasijums, x11, y11),
