@@ -68,6 +68,20 @@ x, y = krustpunkts(k_pieprasijums, b_pieprasijums, k_piedavajums, b_piedavajums)
 
 print("Lidzsvara daudzums ir ", x, " vienibas, un atbilstosa cena ir ", y)
 
+# elastiba
+pc0, d = (int(input("Lai aprekinatu elastibu ievadiet cenu: ")), int(input("-, un tas izmainu procentos: ")))
+pc1 = pc0 * (1 + (d / 100))
+pq0 = (pc0 - b_pieprasijums) / k_pieprasijums
+pq1 = (pc1 - b_pieprasijums) / k_pieprasijums
+
+e = ((pq1 - pq0) / pq0) / ((pc1 - pc0) / pc0)
+if abs(e) == 1:
+    print("Elastiba = |1|, tatad pieprasijums ir vienadots")
+elif abs(e) < 1:
+    print("Elastiba =", abs(e), ", pieprasijums ir neelastigs")
+else:
+    print("Elastiba =", abs(e), ", pieprasijums ir elastigs")
+
 # funkciju punkti
 x_pieprasijums = np.array([0, x * 2])
 y_pieprasijums = np.array([pagarinajums_pa_kreisi(k_pieprasijums, x11, y11),
