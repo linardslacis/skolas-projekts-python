@@ -69,7 +69,7 @@ x, y = krustpunkts(k_pieprasijums, b_pieprasijums, k_piedavajums, b_piedavajums)
 print("Lidzsvara daudzums ir ", x, " vienibas, un atbilstosa cena ir ", y)
 
 # elastiba
-pc0, d = (int(input("Lai aprekinatu elastibu ievadiet cenu: ")), int(input("-, un tas izmainu procentos: ")))
+pc0, d = (int(input("Lai aprekinatu elastibu ievadiet cenu: ")), int(input("Ievadiet cenas izmainu procentos: ")))
 pc1 = pc0 * (1 + (d / 100))
 pq0 = (pc0 - b_pieprasijums) / k_pieprasijums
 pq1 = (pc1 - b_pieprasijums) / k_pieprasijums
