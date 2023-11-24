@@ -1,1 +1,55 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import math
 
+
+def robezas(t):
+    if t == 1:
+        minn = float(input("Ievadiet funckijas mazako robezu: "))
+        return minn
+    elif t == 2:
+        maxx = float(input("Ievadiet funckijas lielako robezu: "))
+        return maxx
+
+
+print("Izveleties velamo funkciju: \n 1. lineara \n 2. kvadratiska \n 3. eksponente \n 4. kvadratsakne(radikals)")
+izvele = int(input())
+if izvele == 1:
+    print("Jusu izveleta funkcija: ax + b")
+    a = float(input("Ievadiet a: "))
+    b = float(input("Ievadiet b: "))
+    x = np.linspace(robezas(1), robezas(2), 100)
+    y = a * x + b
+
+elif izvele == 2:
+    print("Jusu izveleta funkcija: ax^2 * bx + c")
+    a = float(input("Ievadiet a: "))
+    b = float(input("Ievadiet b: "))
+    c = float(input("Ievadiet c: "))
+    x = np.linspace(robezas(1), robezas(2), 100)
+    y = a * x**2 + b * x + c
+
+elif izvele == 3:
+    print("Jusu izveleta funkcija: ae^(bx) + c")
+    a = float(input("Ievadiet a: "))
+    b = float(input("Ievadiet b: "))
+    c = float(input("Ievadiet c: "))
+    x = np.linspace(robezas(1), robezas(2), 500)
+    y = a * math.e**(x * b) + c
+    plt.ylim(0, 100)
+
+elif izvele == 4:
+    print("Jusu izveleta fukcija ir: a√x + b")
+    a = float(input("Ievadiet a: "))
+    b = float(input("Ievadiet b: "))
+    x = np.linspace(0, robezas(2), 100)
+    y = a * pow(x, 0.5) + b
+
+else:
+    print("Nepareizi ievadita vertiba")
+
+plt.plot(x, y)
+plt.xlabel('x, Cena')
+plt.ylabel('y, Daudzums')
+plt.grid(True)
+plt.show()

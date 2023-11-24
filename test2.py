@@ -1,3 +1,3 @@
-e = 1
-e = e + 1
-print(e)
+x, y = int(input()), int(input())
+print(x, y)
+
