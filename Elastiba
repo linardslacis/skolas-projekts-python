@@ -4,18 +4,27 @@ import math
 
 
 def robezas(t):
-    if t == 1:
-        minn = float(input("Ievadiet funckijas mazako cenu: "))
-        return minn
-    elif t == 2:
-        maxx = float(input("Ievadiet funckijas lielako cenu: "))
-        return maxx
+    while True:
+        try:
+            if t == 1:
+                minn = float(input("Ievadiet funckijas mazako cenu: "))
+                return minn
+            elif t == 2:
+                maxx = float(input("Ievadiet funckijas lielako cenu: "))
+                return maxx
+        except ValueError:
+            print("Ievadita nepareiza vertiba")
 
 
 def cenas(m1, m2):
     while True:
         while True:
-            c2 = float(input("Lai aprekinatu elastibu, ievadiet pirmo (mazako) cenu: "))
+            while True:
+                try:
+                    c2 = float(input("Lai aprekinatu elastibu, ievadiet pirmo (mazako) cenu: "))
+                    break
+                except ValueError:
+                    print("Ievadita nepareiza vertiba")
             if (c2 < m1) or (c2 > m2):
                 print("Ievadita vertiba atrodas arpus dotas robezas")
             elif c2 == 0:
@@ -23,7 +32,12 @@ def cenas(m1, m2):
             else:
                 break
         while True:
-            c3 = float(input("Ievadiet otro (lielako) cenu: "))
+            while True:
+                try:
+                    c3 = float(input("Ievadiet otro (lielako) cenu: "))
+                    break
+                except ValueError:
+                    print("Ievadita nepareiza vertiba")
             if (c3 > m2) or (c3 < m1):
                 print("Ievadita vertiba atrodas arpus dotas robezas")
             elif c3 == 0:
@@ -50,8 +64,20 @@ def elastiba(v0, v1, q0, q1):
     return None
 
 
-print("Izveleties velamo funkciju: \n 1. lineara \n 2. kvadratiska \n 3. eksponente \n 4. kvadratsakne(radikals)")
-izvele = int(input())
+while True:
+    while True:
+        try:
+            print("Izveleties velamo funkciju: \n 1. lineara \n 2. kvadratiska \n 3. eksponente \n 4. kvadratsakne("
+                  "radikals)")
+            izvele = int(input())
+            break
+        except ValueError:
+            print("Ievadita nepareiza vertiba")
+    if 1 <= izvele <= 4:
+        break
+    else:
+        print("Ievadita nepareiza vertiba")
+
 if izvele == 1:
     print("Jusu izveleta funkcija: ax + b")
     a = float(input("Ievadiet a: "))
