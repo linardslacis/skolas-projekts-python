@@ -55,7 +55,6 @@ def cenas(m1, m2):
 
 
 def elastiba(v0, v1, q0, q1):
-
     e = ((q1 - q0) / q0) / ((v1 - v0) / v0)
     if abs(e) == 1:
         print("Elastiba = |1|, pieprasijums ir vienadots")
@@ -63,7 +62,7 @@ def elastiba(v0, v1, q0, q1):
         print("Elastiba =", abs(e), ", pieprasijums ir neelastigs")
     else:
         print("Elastiba =", abs(e), ", pieprasijums ir elastigs")
-    return
+    return None
 
 
 while True:
