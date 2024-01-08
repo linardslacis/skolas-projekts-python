@@ -11,4 +11,4 @@ while True:
                                 "Ja nav, tad ievadiet 0, ja ir, tad ievadiet cik"))
         break
     except ValueError:
-        print("Jus esat dolbajobs")
+        print("Jus esat ievadijis kaut ko nepareizi! ")
