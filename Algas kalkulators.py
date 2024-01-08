@@ -4,11 +4,11 @@ while True:
         pensionars = int(input("Ja east pensionars, ievasdiet 1, ja nee, tad 2 \n"))
         break
     except ValueError:
-        print("Jus esat dolbajobs")
+        print("Jus esat ievadijis kaut ko nepareizi!")
 while True:
     try:
         apgadajamie = int(input("Vai Jums ir kads apgadajamais (berns zem 18 gadiem vai kads ar invalidati)? \n "
-                                "Ja nav, tad ievadiet 0, ja ir, tad ievadiet cik"))
+                                "Ja nav, tad ievadiet 0, ja ir, tad ievadiet cik"))  # max apgadajamo skaits
         break
     except ValueError:
-        print("Jus esat ievadijis kaut ko nepareizi! ")
+        print("Jus esat ievadijis kaut ko nepareizi!")
