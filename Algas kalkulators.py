@@ -18,4 +18,4 @@ while True:
 #max neapliekamais minimums ir ienakumiem lidz 500 eur un NM ( neapliekamais minimums )vairs nav pie 1800 f-ja y= -0,385x +692,308 ( strada tikai robezas no 500 lidz 1800eur, ja zem 500 tad viss neapliekams)
 #Uztaisit sarakstu ar neapliekamajiem ienakumiem un pec tam taisit kreditu pamacibu
 #Progresīvais iedzīvotāju ienākuma nodoklis: ienākumam līdz 20 004, eiro – 20 %, ienākumam no 20 004 eiro līdz 78 100 eiro – 23 %; ienākuma daļai, kas pārsniedz 78 100 eiro – 31 %.
-#10,50 % darba ņēmējs maksa socialo nodokli (parasti) jeb  VSAOI
+#10,50 % darba ņēmējs maksa socialo nodokli (parasti) jeb  VSAOI, mainas atkariba no vecuma un ienakumu daudzuma, veselibas stavokla
