@@ -1,17 +1,41 @@
-print("Esiet sveicinats algas kalkulatora!") # jaizveido saraksts ar neapliekamajiem ienakumiem
+
+
+def parbaude():
+    while True:
+        try:
+            t = int(input())
+            return t
+        except ValueError:
+            print("Ievadita nepareiza vertiba")
+
+#jaizveido saraksts ar neapliekamajiem ienakumiem
+print("Esiet sveicinats algas kalkulatora!")
+
+#pensionareim neatliekamais minimums ir 500 eur
+print("Ja esat pensionars, ievasdiet 1, ja nee, tad 2 \n")
 while True:
-    try:
-        pensionars = int(input("Ja east pensionars, ievasdiet 1, ja nee, tad 2 \n")) #pensionareim neatliekamais minimums ir 500 eur
+    pensionars = parbaude()
+    if pensionars < 3:
         break
-    except ValueError:
-        print("Jus kaut ko esat ievadijis nepareizi!")
+    else:
+        print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+
+print("Ja Jums ir invalidāte, ievadiet to grupu(1, 2 vai 3), ja nav, ievadiet 4")
 while True:
-    try:
-        apgadajamie = int(input("Vai Jums ir kads apgadajamais (berns zem 18 gadiem vai kads ar invalidati)? \n "
-                                "Ja nav, tad ievadiet 0, ja ir, tad ievadiet cik"))  # max apgadajamo skaits vienai personai nav noradits, pensionari parasti nevar sanemt 250 apgadajama ativieglojumu
+    invalidate = parbaude()
+    if invalidate < 5:
         break
-    except ValueError:
-        print("Jus kaut ko esat ievadijis nepareizi!")
+    else:
+        print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+
+# max apgadajamo skaits vienai personai nav noradits, pensionari parasti nevar sanemt 250 apgadajama ativieglojumu
+print("Vai Jums ir kads apgadajamais (berns zem 18 gadiem vai kads ar invalidati)? \n "
+                                "Ja nav, tad ievadiet 0, ja ir, tad ievadiet cik")
+apgadajamie = parbaude()
+
+print("Vai Jums ir menešalga vai stundas likme?")
+
+
 #pec algas kalkulatora uztaisit hipotekaro kreditu kalkulatoru no dotas informacijas, kur parada izdevigako kreditu kuru var nemt ar savu algu un 2 cilveku algam
 #hipotekaro kreditu kalkulatora ieklaut procentu likmes un izdevigaku kreditu veidus ja nem no citam pilsetam piemeram kuldigas seb bankas
 #personas ar I vai II grupas invaliditati vai politiski represetie 154 eur nodoklu atvieglojums, III grupas 120 eur
