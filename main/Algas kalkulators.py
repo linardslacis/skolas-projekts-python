@@ -15,15 +15,15 @@ print("Esiet sveicinats algas kalkulatora!")
 print("Ja esat pensionars, ievasdiet 1, ja nee, tad 2 \n")
 while True:
     pensionars = parbaude()
-    if pensionars < 3:
+    if 0 < pensionars < 3:
         break
     else:
         print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
 
-print("Ja Jums ir invalidāte, ievadiet to grupu(1, 2 vai 3), ja nav, ievadiet 4")
+print("Ja Jums ir invalidāte, ievadiet grupu(1, 2 vai 3), ja nav, ievadiet 4")
 while True:
     invalidate = parbaude()
-    if invalidate < 5:
+    if 0 < invalidate < 5:
         break
     else:
         print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
@@ -31,9 +31,52 @@ while True:
 # max apgadajamo skaits vienai personai nav noradits, pensionari parasti nevar sanemt 250 apgadajama ativieglojumu
 print("Vai Jums ir kads apgadajamais (berns zem 18 gadiem vai kads ar invalidati)? \n "
                                 "Ja nav, tad ievadiet 0, ja ir, tad ievadiet cik")
-apgadajamie = parbaude()
+while True:
+    apgadajamie = parbaude()
+    if apgadajamie >= 0:
+        break
+    else:
+        print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
 
-print("Vai Jums ir menešalga vai stundas likme?")
+print("Ja Jums ir mēnešalga, ievadiet 1, ja stundas likme - 2: ")
+while True:
+    algastips = parbaude()
+    if 0 < algastips < 3:
+        break
+    else:
+        print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+
+match algastips:
+    case 1:
+        print("Ievadiet savu brutto menesa algu:")
+        while True:
+            malga = parbaude()
+            if malga > 0:
+                break
+            else:
+                print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+    case 2:
+        print("Ievadiet brutto stundas likmi:")
+        while True:
+            stlikme = parbaude()
+            if stlikme > 0:
+                break
+            else:
+                print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+        print("Ievadiet nostradatu stundu skaitu:")
+        while True:
+            stskaits = parbaude()
+            if stskaits > 0:
+                malga = stskaits * stlikme
+                break
+            else:
+                print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+
+alga = malga * 12
+
+
+
+
 
 
 #pec algas kalkulatora uztaisit hipotekaro kreditu kalkulatoru no dotas informacijas, kur parada izdevigako kreditu kuru var nemt ar savu algu un 2 cilveku algam
