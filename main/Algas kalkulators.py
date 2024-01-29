@@ -84,10 +84,10 @@ elif mbrutto > 1800:
     neapliekamais = 0
 else:
     neapliekamais = 692.308 - 0.385 * mbrutto
-print("Jusu neapliekamais minimums ir", round(neapliekamais),".")
+print("Jusu neapliekamais minimums ir", round(neapliekamais), ".")
 
 VSAOI = 0.105 * (mbrutto - neapliekamais - atvieglojums)
-print("Jusu VSAOI maksajums ir", round(VSAOI),".")
+print("Jusu VSAOI maksajums ir", round(VSAOI), ".")
 
 if mbrutto < 20004:
     IINk = 0.2
@@ -96,9 +96,9 @@ elif 20004 <= mbrutto < 78100:
 else:
     IINk = 0.31
 IIN = IINk * (mbrutto - neapliekamais - atvieglojums)
-print("Jusu IIN maksajums ir", round(IIN),".")
+print("Jusu IIN maksajums ir", round(IIN), ".")
 
 nodokli = VSAOI + IIN
-print("Kopa nodokli ir", round(nodokli),".")
+print("Kopa nodokli ir", round(nodokli), ".")
 mnetto = mbrutto - IIN - VSAOI
-print("Jusu neto alga ir", round(mnetto),".")
+print("Jusu neto alga ir", round(mnetto), ".")
