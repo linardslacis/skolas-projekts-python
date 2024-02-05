@@ -102,3 +102,14 @@ nodokli = VSAOI + IIN
 print("Kopa nodokli ir", round(nodokli), ".")
 mnetto = mbrutto - IIN - VSAOI
 print("Jusu neto alga ir", round(mnetto), ".")
+
+#Lai noteiktu hip. kredīta summu ir nepieciešams ievadei neto alga, no tās aprēķina koeficientu jeb neto alga/ min bruto algas kas ir 700 sogad
+# vēl nepieciesams zinat apgadajamo skaits un kredita ilgums gados (par katru apgadajamo bernu jaatstaj 30% no bruto algas jeb max 60%)
+#kredītņēmējam nevar palikt mazāk par 80% no valsts minimālās algas jeb 700*0,8 = 560 eur uz rokas
+# kreditu var nemt kopa ar laulato
+#https://stat.gov.lv/lv/statistikas-temas/iedzivotaji/majsaimniecibu-izdevumi un Pārliecināties par patērētāja maksātspēju ārpus Vadlīniju DSTI tabulā noteiktajiem
+#limitiem (t.sk. izmantojot citu vērtēšanas metodoloģiju) var, izvērtējot patērētāja
+# regulāro izdevumu paradumus un apmērus (piemēram, vērtējot
+#bankas konta izdruku), tai skaitā, noskaidrojot apgādājamo skaitu, iespējamos īres
+#maksājumus, kā arī izmantojot Centrālās statistikas pārvaldes publicētos datus par
+#vidējiem patēriņa izdevumu apmēriem attiecīgajā izmaksu kategorijā
