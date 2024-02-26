@@ -147,11 +147,33 @@ elif 1 < kk <= 2.5:
 elif kk >= 2.5:
     dsti = 0.4
 
-termins = parbaude()
+print("Ievadiet kredita summu: ")
+while True:
+    summa = parbaude()
+    if summa > 0:
+        break
+    else:
+        print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+
+print("Ievadiet kredita terminu gados: ")
+while True:
+    termins = parbaude()
+    if termins > 0:
+        break
+    else:
+        print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+
+print("Ievadiet pirmo iemaksu: ")
+while True:
+    termins = parbaude()
+    if termins > 0:
+        break
+    else:
+        print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
 iemaksa = parbaude() #(min 10-15 procenti)
 summa = parbaude()
 prlikme = parbaude()
-euribors =
+euribors = 0.038
 
 #Lai noteiktu hip. kredīta summu ir nepieciešams ievadei neto alga, no tās aprēķina koeficientu jeb neto alga/ min bruto algas kas ir 700 sogad
 # vēl nepieciesams zinat apgadajamo skaits un kredita ilgums gados (par katru apgadajamo bernu jaatstaj 30% no bruto algas jeb max 60%)
