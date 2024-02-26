@@ -1,3 +1,6 @@
+import sys
+
+
 def ievades_validacija(pazinojums, nosacijums, kludas_pazinojums):
     while True:
         try:
@@ -16,8 +19,10 @@ def hipotekara_maksajuma_aprekins(kopienak, dsti, summa, termins, iemaksa, prlik
 
     if ikmenesa_maksajums <= kopienak * dsti:
         print("Jusu ikmenesa maksajums bus:", round(ikmenesa_maksajums, 2))
+        return True
     else:
         print("Ikmenesa maksajums ir parak liels. Ludzu, ievadiet datus atkartoti.")
+        return False
 
 
 def galvenais():
@@ -61,7 +66,10 @@ def galvenais():
 
     if neapliekamais + atvieglojums >= mbrutto:
         neapliekamais = mbrutto
-    atvieglojums = 0
+        atvieglojums = 0
+        print("Jūsu nodokļu atvieglojums ir", mbrutto, "€")
+    else:
+        print("Jūsu nodokļu atvieglojums ir", neapliekamais + atvieglojums, "€")
 
     vsaoi = 0.105 * (mbrutto - neapliekamais - atvieglojums)
     print("Jusu vsaoi maksajums ir", round(vsaoi), ".")
@@ -73,7 +81,7 @@ def galvenais():
     else:
         ii_nk = 0.31
     iin = ii_nk * (mbrutto - neapliekamais - atvieglojums)
-    print("Jusu iin maksajums ir", round(iin), ".")
+    print("Jusu IIN maksajums ir", round(iin), ".")
 
     nodokli = vsaoi + iin
     print("Kopa nodokli ir", round(nodokli), ".")
@@ -81,9 +89,12 @@ def galvenais():
     print("Jusu neto alga ir", round(mnetto), ".")
 
     # Hipotekaras maksajuma sadala
-    print("Vai velaties izmantot hipotekara kredita pakalpojumus?")
-    print("Vai jums ir lidzaiznemejs? Ja ir, ievadiet 1, ja nav, ievadiet 0.")
-    lidzaizn = ievades_validacija("Ievadiet savu izveli: ",
+    if ievades_validacija("Vai velaties izmantot hipotekara kredita pakalpojumus? Ievadiet 1, ja jā, ja nē, tad 0.",
+                          lambda x: x in [0, 1],
+                          "Ievadiet derīgu opciju (0 vai 1") == 0:
+        sys.exit("Paldies, ka izvelejaties musu algas kalkulatoru!")
+
+    lidzaizn = ievades_validacija("Vai jums ir lidzaiznemejs? Ja ir, ievadiet 1, ja nav, ievadiet 0.",
                                   lambda x: x in [0, 1],
                                   "Ludzu, ievadiet derigu opciju (0 vai 1).")
     if lidzaizn == 1:
@@ -91,6 +102,8 @@ def galvenais():
         lidzaizn_alga = ievades_validacija("Ievadiet neto algu: ",
                                            lambda x: x > 0,
                                            "Ludzu, ievadiet derigu algu.")
+    else:
+        lidzaizn_alga = 0
 
     kopienakums = mnetto + lidzaizn_alga
     kk = kopienakums / 700
@@ -109,21 +122,25 @@ def galvenais():
         dsti = 0.4
 
     # Hipotekaras aizdevuma detaļu ievade un aprekins
-    summa = ievades_validacija("Ievadiet kredita summu: ",
-                               lambda x: x > 0,
-                               "Ludzu, ievadiet derigu kredita summu.")
-    termins = ievades_validacija("Ievadiet kredita terminu gados: ",
-                                 lambda x: x > 0,
-                                 "Ludzu, ievadiet derigu kredita terminu gados.")
-    iemaksa = ievades_validacija("Ievadiet pirmo iemaksu (min 10% no kredita summas): ",
-                                 lambda x: 0.1 * summa < x < 0.5 * summa,
-                                 "Ludzu, ievadiet derigu pirmo iemaksu.")
+    while True:
+        summa = ievades_validacija("Ievadiet kredita summu: ",
+                                   lambda x: x > 0,
+                                   "Ludzu, ievadiet derigu kredita summu.")
+        termins = ievades_validacija("Ievadiet kredita terminu gados: ",
+                                     lambda x: x > 0,
+                                     "Ludzu, ievadiet derigu kredita terminu gados.")
+        iemaksa = ievades_validacija("Ievadiet pirmo iemaksu (min 10% no kredita summas): ",
+                                     lambda x: 0.1 * summa < x < 0.5 * summa,
+                                     "Ludzu, ievadiet derigu pirmo iemaksu.")
 
-    prlikme = ievades_validacija("Ievadiet % likmi ka decimālu: ",
-                                 lambda x: -0.1 < x < 1,
-                                 "Ludzu, ievadiet derigu procentu likmi.")
+        prlikme = ievades_validacija("Ievadiet % likmi ka decimālu: ",
+                                     lambda x: -0.1 < x < 1,
+                                     "Ludzu, ievadiet derigu procentu likmi.")
 
-    hipotekara_maksajuma_aprekins(kopienakums, dsti, summa, termins, iemaksa, prlikme)
+        if hipotekara_maksajuma_aprekins(kopienakums, dsti, summa, termins, iemaksa, prlikme):
+            break
+
+    sys.exit("Paldies, ka izvēlējaties mūsu hipotekāro kredītoru!")
 
 
 if __name__ == "__main__":
