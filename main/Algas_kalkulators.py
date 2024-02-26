@@ -146,34 +146,46 @@ elif 1 < kk <= 2.5:
             dsti = 0.4
 elif kk >= 2.5:
     dsti = 0.4
-
-print("Ievadiet kredita summu: ")
 while True:
-    summa = parbaude()
-    if summa > 0:
+    print("Ievadiet kredita summu: ")
+    while True:
+        summa = parbaude()
+        if summa > 0:
+            break
+        else:
+            print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+
+    print("Ievadiet kredita terminu gados: ")
+    while True:
+        termins = parbaude()
+        if termins > 0:
+            break
+        else:
+            print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+
+    print("Ievadiet pirmo iemaksu (min 10% no kredita summas): ")
+    while True:
+        iemaksa = parbaude()
+        if summa * 0.1 < iemaksa < 0.5 * summa:
+            break
+        else:
+            print("Meginiet ievadit atkartoti, iemaksa bija par mazu vai par lielu:)")
+
+    print("Ievadiet % likmi kā dalskaitli: ")
+    while True:
+        prlikme = parbaude()
+        if -0.1 < prlikme < 1:
+            break
+        else:
+            print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+    likme = 1 + prlikme + 0.038
+
+    if summa * likme / (12 * termins) <= kopienak * dsti:
+        print("Jusu ikmenesa maksujums bus:", summa * likme / (12 * termins))
         break
     else:
-        print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
+        print("Ikmenesa meksajums ir parak liels, meginiet ievadit datus atkartoti")
 
-print("Ievadiet kredita terminu gados: ")
-while True:
-    termins = parbaude()
-    if termins > 0:
-        break
-    else:
-        print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
-
-print("Ievadiet pirmo iemaksu: ")
-while True:
-    termins = parbaude()
-    if termins > 0:
-        break
-    else:
-        print("Meginiet ievadit atkartoti, kaut kas nebija kartiba :)")
-iemaksa = parbaude() #(min 10-15 procenti)
-summa = parbaude()
-prlikme = parbaude()
-euribors = 0.038
 
 #Lai noteiktu hip. kredīta summu ir nepieciešams ievadei neto alga, no tās aprēķina koeficientu jeb neto alga/ min bruto algas kas ir 700 sogad
 # vēl nepieciesams zinat apgadajamo skaits un kredita ilgums gados (par katru apgadajamo bernu jaatstaj 30% no bruto algas jeb max 60%)
