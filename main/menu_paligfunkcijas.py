@@ -24,7 +24,7 @@ def menu_ievads():
           "3. - Elastības dažādām funckijām \n"
           "4. - Lidzsvars divam lianeāraām funckijām")
     return ievades_validacija("Jūsu izvēle:",
-                              lambda x: x in [1, 2],
+                              lambda x: x in [1, 2, 3, 4],
                               "Ievadiet derīgu opciju (1 vai 2)")
 
 
@@ -319,10 +319,10 @@ def elastibas_aprekins():
         case 1:
             print("Jusu izveleta funkcija: ax + b")
             a = ievades_validacija("Ievadiet a: ",
-                                   lambda q: q == float,
+                                   lambda q: float(q),
                                    "")
             b = ievades_validacija("Ievadiet b: ",
-                                   lambda q: q == float,
+                                   lambda q: float(q),
                                    "")
             y = a * x + b
             c0, c1 = cenas(x[99], 1, a, b, c)
@@ -333,13 +333,13 @@ def elastibas_aprekins():
         case 2:
             print("Jusu izveleta funkcija: ax^2 * bx + c")
             a = ievades_validacija("Ievadiet a: ",
-                                   lambda q: q == float,
+                                   lambda q: float(q),
                                    "")
             b = ievades_validacija("Ievadiet b: ",
-                                   lambda q: q == float,
+                                   lambda q: float(q),
                                    "")
             c = ievades_validacija("Ievadiet c: ",
-                                   lambda q: q == float,
+                                   lambda q: float(q),
                                    "")
             y = a * x ** 2 + b * x + c
             c0, c1 = cenas(x[99], 2, a, b, c)
@@ -350,13 +350,13 @@ def elastibas_aprekins():
         case 3:
             print("Jusu izveleta funkcija: ae^(bx) + c")
             a = ievades_validacija("Ievadiet a: ",
-                                   lambda q: q == float,
+                                   lambda q: float(q),
                                    "")
             b = ievades_validacija("Ievadiet b: ",
-                                   lambda q: q == float,
+                                   lambda q: float(q),
                                    "")
             c = ievades_validacija("Ievadiet c: ",
-                                   lambda q: q == float,
+                                   lambda q: float(q),
                                    "")
             y = a * math.e ** (x * b) + c
             plt.ylim(0, 100)
@@ -368,10 +368,10 @@ def elastibas_aprekins():
         case 4:
             print("Jusu izveleta fukcija ir: a√x + b")
             a = ievades_validacija("Ievadiet a: ",
-                                   lambda q: q == float,
+                                   lambda q: float(q),
                                    "")
             b = ievades_validacija("Ievadiet b: ",
-                                   lambda q: q == float,
+                                   lambda q: float(q),
                                    "")
             y = a * pow(x, 0.5) + b
             c0, c1 = cenas(x[99], 4, a, b, c)
@@ -419,29 +419,29 @@ def pagarinajums_pa_labi(k, l1, h, xlim):
 
 def lidzsvars_aprekins():
     x11 = ievades_validacija("Ievadiet daudzumu pirmajam pieprasījuma punktam: ",
-                             lambda q: q == float,
-                             "")
+                             lambda q: float(q),
+                             "nepareizi")
     y11 = ievades_validacija("Ievadiet atbilstošo cenu: ",
-                             lambda q: q == float,
+                             lambda q: float(q),
                              "")
     x12 = ievades_validacija("Ievadiet daudzumu otrajam pieprasījuma punktam: ",
-                             lambda q: q == float,
+                             lambda q: float(q),
                              "")
     y12 = ievades_validacija("Ievadiet atbilstošo cenu: ",
-                             lambda q: q == float,
+                             lambda q: float(q),
                              "")
 
     x21 = ievades_validacija("Ievadiet daudzumu pirmajam piedavājuma punktam: ",
-                             lambda q: q == float,
+                             lambda q: float(q),
                              "")
     y21 = ievades_validacija("Ievadiet atbilstošo cenu: ",
-                             lambda q: q == float,
+                             lambda q: float(q),
                              "")
     x22 = ievades_validacija("Ievadiet daudzumu otrajam piedavājuma punktam: ",
-                             lambda q: q == float,
+                             lambda q: float(q),
                              "")
     y22 = ievades_validacija("Ievadiet atbilstošo cenu: ",
-                             lambda q: q == float,
+                             lambda q: float(q),
                              "")
 
     # koeficientu un krustpunktu aprekini
