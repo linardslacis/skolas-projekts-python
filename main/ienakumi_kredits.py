@@ -1,16 +1,5 @@
 import sys
-
-
-def ievades_validacija(pazinojums, nosacijums, kludas_pazinojums):
-    while True:
-        try:
-            vertiba = float(input(pazinojums))
-            if nosacijums(vertiba):
-                return vertiba
-            else:
-                print(kludas_pazinojums)
-        except ValueError:
-            print("Nederiga ievade. Ludzu, ievadiet derigu skaitlisko vertibu.")
+from menu_paligfunkcijas import ievades_validacija
 
 
 def hipotekara_maksajuma_aprekins(kopienak, dsti, summa, termins, iemaksa, prlikme):
@@ -25,9 +14,31 @@ def hipotekara_maksajuma_aprekins(kopienak, dsti, summa, termins, iemaksa, prlik
         return False
 
 
-def galvenais():
+def dsti_aprekins(kk, kopienakums, apgadajamie):
+    if kk <= 0.7:
+        return 0.1
+    elif 0.7 < kk <= 1:
+        return 0.2
+    elif 1 < kk <= 2.5:
+        dsti = (kopienakums - (492 + 700 * 0.3 * apgadajamie)) / kopienakums
+        if apgadajamie == 0:
+            if dsti > 0.4:
+                return 0.4
+            else:
+                return dsti
+        elif dsti >= 0.4 and apgadajamie != 0:
+            if 1.8 < kk <= 2.5:
+                return 0.35
+            else:
+                return 0.3
+        else:
+            return dsti
+    elif kk >= 2.5:
+        return 0.4
+
+
+def ienakumu_aprekins(apgadajamie):
     neapliekamais = float(0)
-    print("Esiet sveicinats algas kalkulatora!")
 
     pensionars = ievades_validacija("Ja esat pensionars, ievadiet 1, ja ne, tad 0: ",
                                     lambda x: x in [0, 1],
@@ -41,9 +52,6 @@ def galvenais():
         atvieglojums = 120
     else:
         atvieglojums = 0
-    apgadajamie = ievades_validacija("Ja jums ir kāds apgadajamais, ievadiet to skaitu, ja nav, ievadiet 0: ",
-                                     lambda x: x >= 0,
-                                     "Ludzu, ievadiet derigu opciju (naturalo skaitli vai 0).")
     if pensionars != 1:
         atvieglojums = atvieglojums + 250 * apgadajamie
 
@@ -88,11 +96,8 @@ def galvenais():
     mnetto = mbrutto - iin - vsaoi
     print("Jusu neto alga ir", round(mnetto), ".")
 
-    # Hipotekaras maksajuma sadala
-    if ievades_validacija("Vai velaties izmantot hipotekara kredita pakalpojumus? Ievadiet 1, ja jā, ja nē, tad 0.",
-                          lambda x: x in [0, 1],
-                          "Ievadiet derīgu opciju (0 vai 1") == 0:
-        sys.exit("Paldies, ka izvelejaties musu algas kalkulatoru!")
+
+def hipotekarais(apgadajamie, mnetto):
 
     lidzaizn = ievades_validacija("Vai jums ir lidzaiznemejs? Ja ir, ievadiet 1, ja nav, ievadiet 0.",
                                   lambda x: x in [0, 1],
@@ -107,19 +112,16 @@ def galvenais():
 
     kopienakums = mnetto + lidzaizn_alga
     kk = kopienakums / 700
-    if kk <= 0.7:
-        dsti = 0.1
-    elif 0.7 < kk <= 1:
-        dsti = 0.2
-    elif 1 < kk <= 2.5:
-        if kopienakums * 0.6 >= 492 + 210 * apgadajamie:
-            dsti = 0.4
-        else:
-            dsti = (kopienakums - (492 + 700 * 0.3 * apgadajamie)) / kopienakums
-            if dsti > 0.4:
-                dsti = 0.4
-    elif kk >= 2.5:
-        dsti = 0.4
+
+    match lidzaizn:
+        case 0:
+            if mnetto < 850:
+                sys.exit("Jūsu ienakumi ir parak mazi, lai Jūs varētu atļauties ņemt kredītu!")
+        case 1:
+            if kopienakums < 1200:
+                sys.exit("Jūsu ienakumi ir parak mazi, lai Jūs varētu atļauties ņemt kredītu!")
+
+    dsti = dsti_aprekins(kk, kopienakums, apgadajamie)
 
     # Hipotekaras aizdevuma detaļu ievade un aprekins
     while True:
@@ -141,7 +143,3 @@ def galvenais():
             break
 
     sys.exit("Paldies, ka izvēlējaties mūsu hipotekāro kredītoru!")
-
-
-if __name__ == "__main__":
-    galvenais()

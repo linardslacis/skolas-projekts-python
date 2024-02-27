@@ -20,13 +20,16 @@ def augstaka_cena():
                 return maxx
 
 
-def parbaude():
+def ievades_validacija(pazinojums, nosacijums, kludas_pazinojums):
     while True:
         try:
-            t = float(input())
-            return t
+            vertiba = float(input(pazinojums))
+            if nosacijums(vertiba):
+                return vertiba
+            else:
+                print(kludas_pazinojums)
         except ValueError:
-            print("Ievadita nepareiza vertiba")
+            print("Nederiga ievade. Ludzu, ievadiet derigu skaitlisko vertibu.")
 
 
 def salidzinasana(t, v):
@@ -72,12 +75,12 @@ def cenas(m2, t):
     while True:
         while True:
             print("Lai aprekinatu elastibu, ievadiet pirmo cenu: ")
-            c2 = parbaude()
+            c2 = ievades_validacija()
             if salidzinasana(c2, m2) == 0 and nules_parbaude(c2, t) == 0:
                 break
         while True:
             print("Ievadiet otro cenu: ")
-            c3 = parbaude()
+            c3 = ievades_validacija()
             if salidzinasana(c3, m2) == 0 and nules_parbaude(c3, t) == 0:
                 break
 
@@ -105,7 +108,7 @@ def elastiba(v0, v1, q0, q1):
 while True:
     print("Izveleties velamo funkciju: \n 1. lineara \n 2. kvadratiska \n 3. eksponente \n 4. kvadratsakne("
           "radikals)")
-    izvele = parbaude()
+    izvele = ievades_validacija()
     if 1 <= izvele <= 4:
         break
     else:
@@ -115,9 +118,9 @@ match izvele:
     case 1:
         print("Jusu izveleta funkcija: ax + b")
         print("Ievadiet a: ")
-        a = parbaude()
+        a = ievades_validacija()
         print("Ievadiet b: ")
-        b = parbaude()
+        b = ievades_validacija()
         x = np.linspace(0, augstaka_cena(), 100)
         y = a * x + b
         c0, c1 = cenas(x[99], 1)
@@ -128,11 +131,11 @@ match izvele:
     case 2:
         print("Jusu izveleta funkcija: ax^2 * bx + c")
         print("Ievadiet a: ")
-        a = parbaude()
+        a = ievades_validacija()
         print("Ievadiet b: ")
-        b = parbaude()
+        b = ievades_validacija()
         print("Ievadiet c: ")
-        c = parbaude()
+        c = ievades_validacija()
         x = np.linspace(0, augstaka_cena(), 100)
         y = a * x ** 2 + b * x + c
         c0, c1 = cenas(x[99], 2)
@@ -143,11 +146,11 @@ match izvele:
     case 3:
         print("Jusu izveleta funkcija: ae^(bx) + c")
         print("Ievadiet a: ")
-        a = parbaude()
+        a = ievades_validacija()
         print("Ievadiet b: ")
-        b = parbaude()
+        b = ievades_validacija()
         print("Ievadiet c: ")
-        c = parbaude()
+        c = ievades_validacija()
         x = np.linspace(0, augstaka_cena(), 100)
         y = a * math.e ** (x * b) + c
         plt.ylim(0, 100)
@@ -159,9 +162,9 @@ match izvele:
     case 4:
         print("Jusu izveleta fukcija ir: a√x + b")
         print("Ievadiet a: ")
-        a = parbaude()
+        a = ievades_validacija()
         print("Ievadiet b: ")
-        b = parbaude()
+        b = ievades_validacija()
         x = np.linspace(0, augstaka_cena(), 100)
         y = a * pow(x, 0.5) + b
         c0, c1 = cenas(x[99], 4)
