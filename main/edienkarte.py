@@ -1,8 +1,7 @@
 from menu_paligfunkcijas import *
 
 
-apgadajamie = int(-1)
-mnetto = float(-1)
+apgadajamie, mnetto = None, None
 
 
 print("Esiet sveicināti multifunkcionalajā ekonomikas rīkā!")
@@ -16,5 +15,11 @@ while True:
         case 2:
             apgadajamie, mnetto = apgadajamo_parbaude(apgadajamie), mnetto_parbaude(mnetto, apgadajamie)
             hipotekarais(apgadajamie, mnetto)
+
+        case 3:
+            elastibas_aprekins()
+
+        case 4:
+            lidzsvars_aprekins()
 
     turpinat()

@@ -1,6 +1,10 @@
 import sys
+import matplotlib.pyplot as plt
+import numpy as np
+import math
 
 
+# paligfunkcijas
 def ievades_validacija(pazinojums, nosacijums, kludas_pazinojums):
     while True:
         try:
@@ -16,7 +20,9 @@ def ievades_validacija(pazinojums, nosacijums, kludas_pazinojums):
 def menu_ievads():
     print("Menu:\n"
           "1. - Netto algas aprēķināšana \n"
-          "2. - Hipotekārā kredīta kalkulātors")
+          "2. - Hipotekārā kredīta kalkulātors \n"
+          "3. - Elastības dažādām funckijām \n"
+          "4. - Lidzsvars divam lianeāraām funckijām")
     return ievades_validacija("Jūsu izvēle:",
                               lambda x: x in [1, 2],
                               "Ievadiet derīgu opciju (1 vai 2)")
@@ -31,7 +37,7 @@ def turpinat():
 
 
 def apgadajamo_parbaude(ap):
-    if ap < 0:
+    if ap is None:
         ap = ievades_validacija("Ja Jums ir apgadajams personas, ievadiet skaitlu, "
                                 "ja nav, ievadiet 0 \n",
                                 lambda x: x >= 0,
@@ -49,7 +55,7 @@ def apgadajamo_parbaude(ap):
 
 
 def mnetto_parbaude(mn, ap):
-    if mn < 0:
+    if mn is None:
         mn = ievades_validacija("Ievadiet savu netto ienākumu summu! Ja zināt tikai brutto ievadiet 0!",
                                 lambda x: x >= 0,
                                 "Ievadiet derīgu naturalo skaitli!")
@@ -68,6 +74,7 @@ def mnetto_parbaude(mn, ap):
     return mn
 
 
+# alga un kredits
 def hipotekara_maksajuma_aprekins(kopienak, dsti, summa, termins, iemaksa, prlikme):
     likme = 1 + prlikme + 0.038
     ikmenesa_maksajums = ((summa * likme) - iemaksa) / (12 * termins)
@@ -121,10 +128,10 @@ def ienakumu_aprekins(apgadajamie):
     if pensionars != 1:
         atvieglojums = atvieglojums + 250 * apgadajamie
 
-    algastips = ievades_validacija("Ja Jums ir mēnešalga, ievadiet 1, ja stundas likme - 2",
-                                   lambda x: x in [1, 2],
-                                   "Ludzu, ievadiet derigu opciju (1 vai 2).")
-    match algastips:
+    mbrutto = None
+    match ievades_validacija("Ja Jums ir mēnešalga, ievadiet 1, ja stundas likme - 2",
+                             lambda x: x in [1, 2],
+                             "Ludzu, ievadiet derigu opciju (1 vai 2)."):
         case 1:
             mbrutto = ievades_validacija("Ievadiet savu brutto menesa algu:",
                                          lambda x: x > 0,
@@ -210,3 +217,279 @@ def hipotekarais(apgadajamie, mnetto):
 
         if hipotekara_maksajuma_aprekins(kopienakums, dsti, summa, termins, iemaksa, prlikme):
             break
+
+
+# elastiba dazadam funckijam
+def augstaka_cena():
+    while True:
+        try:
+            maxx = float(input("Ievadiet funckijas lielako cenu: "))
+        except ValueError:
+            print("Ievadita nepareiza vertiba")
+        else:
+            if maxx <= 0:
+                print("Augstaka cena nevar but vienada vai mazaka par 0")
+                continue
+            else:
+                return maxx
+
+
+def salidzinasana(t, v):
+    if t < 0 or t > v:
+        print("Ievadita vertiba atrodas arpus grafika robezam")
+        return 1
+    elif t == 0:
+        print("Cena nevar but vienada ar 0")
+        return 1
+    else:
+        return 0
+
+
+def nules_parbaude(v, t, a, b, c):
+    match t:
+        case 1:
+            if a*v+b == 0:
+                print("Ar doto vertibu nav iespejams aprekinat elastibu")
+                return 1
+            else:
+                return 0
+        case 2:
+            if a * v ** 2 + b * v + c == 0:
+                print("Ar doto vertibu nav iespejams aprekinat elastibu")
+                return 1
+            else:
+                return 0
+        case 3:
+            if a * math.e ** (v * b) + c == 0:
+                print("Ar doto vertibu nav iespejams aprekinat elastibu")
+                return 1
+            else:
+                return 0
+        case 4:
+            if a * pow(v, 0.5) + b == 0:
+                print("Ar doto vertibu nav iespejams aprekinat elastibu")
+                return 1
+            else:
+                return 0
+
+
+def cenas(m2, t, a, b, c):
+    while True:
+        while True:
+            c2 = ievades_validacija("Lai aprekinatu elastibu, ievadiet pirmo cenu: ",
+                                    lambda q: q == float,
+                                    "Ievadiet derīgu skaitlisko vērtību!")
+            if salidzinasana(c2, m2) == 0 and nules_parbaude(c2, t, a, b, c) == 0:
+                break
+        while True:
+            c3 = ievades_validacija("Ievadiet otro cenu: ",
+                                    lambda q: q == float,
+                                    "Ievadiet derīgu skaitlisko vērtību!")
+            if salidzinasana(c3, m2) == 0 and nules_parbaude(c3, t, a, b, c) == 0:
+                break
+
+        if c2 > c3:
+            c2, c3 = c3, c2
+            break
+        elif c2 == c3:
+            print("Ievaditas vertibas ir vienadas")
+        else:
+            break
+    return c2, c3
+
+
+def elastiba(v0, v1, q0, q1):
+    el = ((q1 - q0) / q0) / ((v1 - v0) / v0)
+    if abs(el) == 1:
+        print("Elastiba = |1|, pieprasijums ir vienadots")
+    elif abs(el) < 1:
+        print("Elastiba =", round(abs(el)), ", pieprasijums ir neelastigs")
+    else:
+        print("Elastiba =", round(abs(el)), ", pieprasijums ir elastigs")
+    return None
+
+
+def elastibas_aprekins():
+    a, b, c = 0, 0, 0
+    x = np.linspace(0, augstaka_cena(), 100)
+    match ievades_validacija("Izveleties velamo funkciju: \n 1. lineara \n "
+                             "2. kvadratiska \n 3. eksponente \n 4. kvadratsakne(radikals)",
+                             lambda q: q in [1, 2, 3, 4],
+                             "Ievadiet derīgu opciju(1, 2, 3 vai 4"):
+        case 1:
+            print("Jusu izveleta funkcija: ax + b")
+            a = ievades_validacija("Ievadiet a: ",
+                                   lambda q: q == float,
+                                   "")
+            b = ievades_validacija("Ievadiet b: ",
+                                   lambda q: q == float,
+                                   "")
+            y = a * x + b
+            c0, c1 = cenas(x[99], 1, a, b, c)
+            y0 = a * c0 + b
+            y1 = a * c1 + b
+            elastiba(c0, c1, y0, y1)
+
+        case 2:
+            print("Jusu izveleta funkcija: ax^2 * bx + c")
+            a = ievades_validacija("Ievadiet a: ",
+                                   lambda q: q == float,
+                                   "")
+            b = ievades_validacija("Ievadiet b: ",
+                                   lambda q: q == float,
+                                   "")
+            c = ievades_validacija("Ievadiet c: ",
+                                   lambda q: q == float,
+                                   "")
+            y = a * x ** 2 + b * x + c
+            c0, c1 = cenas(x[99], 2, a, b, c)
+            y0 = a * c0 ** 2 + b * x + c
+            y1 = a * c1 ** 2 + b * x + c
+            elastiba(c0, c1, y0, y1)
+
+        case 3:
+            print("Jusu izveleta funkcija: ae^(bx) + c")
+            a = ievades_validacija("Ievadiet a: ",
+                                   lambda q: q == float,
+                                   "")
+            b = ievades_validacija("Ievadiet b: ",
+                                   lambda q: q == float,
+                                   "")
+            c = ievades_validacija("Ievadiet c: ",
+                                   lambda q: q == float,
+                                   "")
+            y = a * math.e ** (x * b) + c
+            plt.ylim(0, 100)
+            c0, c1 = cenas(x[99], 3, a, b, c)
+            y0 = a * math.e ** (c0 * b) + c
+            y1 = a * math.e ** (c1 * b) + c
+            elastiba(c0, c1, y0, y1)
+
+        case 4:
+            print("Jusu izveleta fukcija ir: a√x + b")
+            a = ievades_validacija("Ievadiet a: ",
+                                   lambda q: q == float,
+                                   "")
+            b = ievades_validacija("Ievadiet b: ",
+                                   lambda q: q == float,
+                                   "")
+            y = a * pow(x, 0.5) + b
+            c0, c1 = cenas(x[99], 4, a, b, c)
+            y0 = a * pow(c0, 0.5) + b
+            y1 = a * pow(c1, 0.5) + b
+            elastiba(c0, c1, y0, y1)
+
+    # noinspection PyUnboundLocalVariable
+    plt.plot(x, y)
+    plt.xlabel('x, Cena')
+    plt.ylabel('y, Daudzums')
+    plt.grid(True)
+    plt.show()
+
+
+# lidzsvars
+def koeficientm(a11, a12, c11, c12):
+    m3 = (c12-c11)/(a12-a11)
+    b3 = c11-(a11*m3)
+    return m3, b3
+
+
+def krustpunkts(a4, b4, a8, b8):
+    if a4 == a8:
+        print("Liknes ir paralelas")
+        return None
+    x5 = (b8 - b4) / (a4 - a8)
+    y5 = a4 * x5 + b4
+    return x5, y5
+
+
+def pagarinajums_pa_kreisi(k, l1, h):
+    if l1 == 0:
+        return h
+    else:
+        return h - l1 * k
+
+
+def pagarinajums_pa_labi(k, l1, h, xlim):
+    if l1 == 2 * xlim:
+        return h
+    else:
+        return h + (2 * xlim-l1) * k
+
+
+def lidzsvars_aprekins():
+    x11 = ievades_validacija("Ievadiet daudzumu pirmajam pieprasījuma punktam: ",
+                             lambda q: q == float,
+                             "")
+    y11 = ievades_validacija("Ievadiet atbilstošo cenu: ",
+                             lambda q: q == float,
+                             "")
+    x12 = ievades_validacija("Ievadiet daudzumu otrajam pieprasījuma punktam: ",
+                             lambda q: q == float,
+                             "")
+    y12 = ievades_validacija("Ievadiet atbilstošo cenu: ",
+                             lambda q: q == float,
+                             "")
+
+    x21 = ievades_validacija("Ievadiet daudzumu pirmajam piedavājuma punktam: ",
+                             lambda q: q == float,
+                             "")
+    y21 = ievades_validacija("Ievadiet atbilstošo cenu: ",
+                             lambda q: q == float,
+                             "")
+    x22 = ievades_validacija("Ievadiet daudzumu otrajam piedavājuma punktam: ",
+                             lambda q: q == float,
+                             "")
+    y22 = ievades_validacija("Ievadiet atbilstošo cenu: ",
+                             lambda q: q == float,
+                             "")
+
+    # koeficientu un krustpunktu aprekini
+    k_pieprasijums, b_pieprasijums = koeficientm(x11, x12, y11, y12)
+
+    k_piedavajums, b_piedavajums = koeficientm(x21, x22, y21, y22)
+
+    x, y = krustpunkts(k_pieprasijums, b_pieprasijums, k_piedavajums, b_piedavajums)
+
+    print("Lidzsvara daudzums ir ", x, " vienibas, un atbilstosa cena ir ", y)
+
+    # elastiba
+    pc0, d = (int(input("Lai aprekinatu elastibu ievadiet cenu: ")), int(input("Ievadiet cenas izmainu procentos: ")))
+    pc1 = pc0 * (1 + (d / 100))
+    pq0 = (pc0 - b_pieprasijums) / k_pieprasijums
+    pq1 = (pc1 - b_pieprasijums) / k_pieprasijums
+
+    e = ((pq1 - pq0) / pq0) / ((pc1 - pc0) / pc0)
+    if abs(e) == 1:
+        print("Elastiba = |1|, tatad pieprasijums ir vienadots")
+    elif abs(e) < 1:
+        print("Elastiba =", abs(e), ", pieprasijums ir neelastigs")
+    else:
+        print("Elastiba =", abs(e), ", pieprasijums ir elastigs")
+
+    # funkciju punkti
+    x_pieprasijums = np.array([0, x * 2])
+    y_pieprasijums = np.array([pagarinajums_pa_kreisi(k_pieprasijums, x11, y11),
+                               pagarinajums_pa_labi(k_pieprasijums, x12, y12, x)])
+
+    x_piedavajums = np.array([0, x * 2])
+    y_piedavajums = np.array([pagarinajums_pa_kreisi(k_piedavajums, x21, y21),
+                              pagarinajums_pa_labi(k_piedavajums, x22, y22, x)])
+
+    x_krustpunkts = np.array([x, x, x])
+    y_krustpunkts = np.array([y * 2, y, 0])
+
+    # funkciju attelosana
+    plt.plot(x_pieprasijums, y_pieprasijums, label="Pieprasijums")
+    plt.plot(x_piedavajums, y_piedavajums, label="Piedavajums")
+    plt.plot(x_krustpunkts, y_krustpunkts, marker='o', label="Lidzsvars")
+    plt.legend(loc='upper center')
+
+    # grafika ipasibas
+    plt.xlim(0, x * 2)
+    plt.ylim(0, y * 2)
+    plt.title("Pieprasījuma, piedāvājuma likne")
+    plt.xlabel("Daudzums")
+    plt.ylabel("Cena")
+    plt.grid()
+    plt.show()

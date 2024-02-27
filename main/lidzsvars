@@ -40,73 +40,72 @@ def parbaude(u):
     return u
 
 
-# punktu pieprasijums
-x11 = float(input("Ievadiet daudzumu pirmajam pieprasījuma punktam: "))
-x11 = parbaude(x11)
-y11 = float(input("Ievadiet atbilstošo cenu: "))
-y11 = parbaude(y11)
-x12 = float(input("Ievadiet daudzumu otrajam pieprasījuma punktam: "))
-x12 = parbaude(x12)
-y12 = float(input("Ievadiet atbilstošo cenu: "))
-y12 = parbaude(y12)
+def lidzsvars_aprekins():
+    x11 = float(input("Ievadiet daudzumu pirmajam pieprasījuma punktam: "))
+    x11 = parbaude(x11)
+    y11 = float(input("Ievadiet atbilstošo cenu: "))
+    y11 = parbaude(y11)
+    x12 = float(input("Ievadiet daudzumu otrajam pieprasījuma punktam: "))
+    x12 = parbaude(x12)
+    y12 = float(input("Ievadiet atbilstošo cenu: "))
+    y12 = parbaude(y12)
 
-x21 = float(input("Ievadiet daudzumu pirmajam piedavājuma punktam: "))
-x21 = parbaude(x21)
-y21 = float(input("Ievadiet atbilstošo cenu: "))
-y21 = parbaude(y21)
-x22 = float(input("Ievadiet daudzumu otrajam piedavājuma punktam: "))
-x22 = parbaude(x22)
-y22 = float(input("Ievadiet atbilstošo cenu: "))
-y22 = parbaude(y22)
+    x21 = float(input("Ievadiet daudzumu pirmajam piedavājuma punktam: "))
+    x21 = parbaude(x21)
+    y21 = float(input("Ievadiet atbilstošo cenu: "))
+    y21 = parbaude(y21)
+    x22 = float(input("Ievadiet daudzumu otrajam piedavājuma punktam: "))
+    x22 = parbaude(x22)
+    y22 = float(input("Ievadiet atbilstošo cenu: "))
+    y22 = parbaude(y22)
 
-# koeficientu un krustpunktu aprekini
-k_pieprasijums, b_pieprasijums = koeficientm(x11, x12, y11, y12)
+    # koeficientu un krustpunktu aprekini
+    k_pieprasijums, b_pieprasijums = koeficientm(x11, x12, y11, y12)
 
-k_piedavajums, b_piedavajums = koeficientm(x21, x22, y21, y22)
+    k_piedavajums, b_piedavajums = koeficientm(x21, x22, y21, y22)
 
-x, y = krustpunkts(k_pieprasijums, b_pieprasijums, k_piedavajums, b_piedavajums)
+    x, y = krustpunkts(k_pieprasijums, b_pieprasijums, k_piedavajums, b_piedavajums)
 
-print("Lidzsvara daudzums ir ", x, " vienibas, un atbilstosa cena ir ", y)
+    print("Lidzsvara daudzums ir ", x, " vienibas, un atbilstosa cena ir ", y)
 
-# elastiba
-pc0, d = (int(input("Lai aprekinatu elastibu ievadiet cenu: ")), int(input("Ievadiet cenas izmainu procentos: ")))
-pc1 = pc0 * (1 + (d / 100))
-pq0 = (pc0 - b_pieprasijums) / k_pieprasijums
-pq1 = (pc1 - b_pieprasijums) / k_pieprasijums
+    # elastiba
+    pc0, d = (int(input("Lai aprekinatu elastibu ievadiet cenu: ")), int(input("Ievadiet cenas izmainu procentos: ")))
+    pc1 = pc0 * (1 + (d / 100))
+    pq0 = (pc0 - b_pieprasijums) / k_pieprasijums
+    pq1 = (pc1 - b_pieprasijums) / k_pieprasijums
 
-e = ((pq1 - pq0) / pq0) / ((pc1 - pc0) / pc0)
-if abs(e) == 1:
-    print("Elastiba = |1|, tatad pieprasijums ir vienadots")
-elif abs(e) < 1:
-    print("Elastiba =", abs(e), ", pieprasijums ir neelastigs")
-else:
-    print("Elastiba =", abs(e), ", pieprasijums ir elastigs")
+    e = ((pq1 - pq0) / pq0) / ((pc1 - pc0) / pc0)
+    if abs(e) == 1:
+        print("Elastiba = |1|, tatad pieprasijums ir vienadots")
+    elif abs(e) < 1:
+        print("Elastiba =", abs(e), ", pieprasijums ir neelastigs")
+    else:
+        print("Elastiba =", abs(e), ", pieprasijums ir elastigs")
 
-# funkciju punkti
-x_pieprasijums = np.array([0, x * 2])
-y_pieprasijums = np.array([pagarinajums_pa_kreisi(k_pieprasijums, x11, y11),
-                           pagarinajums_pa_labi(k_pieprasijums, x12, y12, x)])
+    # funkciju punkti
+    x_pieprasijums = np.array([0, x * 2])
+    y_pieprasijums = np.array([pagarinajums_pa_kreisi(k_pieprasijums, x11, y11),
+                               pagarinajums_pa_labi(k_pieprasijums, x12, y12, x)])
 
-x_piedavajums = np.array([0, x * 2])
-y_piedavajums = np.array([pagarinajums_pa_kreisi(k_piedavajums, x21, y21),
-                          pagarinajums_pa_labi(k_piedavajums, x22, y22, x)])
+    x_piedavajums = np.array([0, x * 2])
+    y_piedavajums = np.array([pagarinajums_pa_kreisi(k_piedavajums, x21, y21),
+                              pagarinajums_pa_labi(k_piedavajums, x22, y22, x)])
 
-x_krustpunkts = np.array([x, x, x])
-y_krustpunkts = np.array([y * 2, y, 0])
+    x_krustpunkts = np.array([x, x, x])
+    y_krustpunkts = np.array([y * 2, y, 0])
 
-# funkciju attelosana
-plt.plot(x_pieprasijums, y_pieprasijums, label="Pieprasijums")
-plt.plot(x_piedavajums, y_piedavajums, label="Piedavajums")
-plt.plot(x_krustpunkts, y_krustpunkts, marker='o', label="Lidzsvars")
-plt.legend(loc='upper center')
+    # funkciju attelosana
+    plt.plot(x_pieprasijums, y_pieprasijums, label="Pieprasijums")
+    plt.plot(x_piedavajums, y_piedavajums, label="Piedavajums")
+    plt.plot(x_krustpunkts, y_krustpunkts, marker='o', label="Lidzsvars")
+    plt.legend(loc='upper center')
 
-# grafika ipasibas
-plt.xlim(0, x * 2)
-plt.ylim(0, y * 2)
-plt.title("Pieprasījuma, piedāvājuma likne")
-plt.xlabel("Daudzums")
-plt.ylabel("Cena")
-plt.grid()
-plt.show()
+    # grafika ipasibas
+    plt.xlim(0, x * 2)
+    plt.ylim(0, y * 2)
+    plt.title("Pieprasījuma, piedāvājuma likne")
+    plt.xlabel("Daudzums")
+    plt.ylabel("Cena")
+    plt.grid()
+    plt.show()
 
-quit()
