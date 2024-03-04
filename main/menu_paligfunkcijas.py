@@ -95,15 +95,9 @@ def dsti_aprekins(kk, kopienakums, apgadajamie):
     elif 1 < kk <= 2.5:
         dsti = (kopienakums - (492 + 700 * 0.3 * apgadajamie)) / kopienakums
         if apgadajamie == 0:
-            if dsti > 0.4:
-                return 0.4
-            else:
-                return dsti
+            return min(0.4, dsti)
         elif dsti >= 0.4 and apgadajamie != 0:
-            if 1.8 < kk <= 2.5:
-                return 0.35
-            else:
-                return 0.3
+            return 0.35 if 1.8 < kk <= 2.5 else 0.3
         else:
             return dsti
     elif kk >= 2.5:
@@ -459,13 +453,7 @@ def lidzsvars_aprekins():
     pq0 = (pc0 - b_pieprasijums) / k_pieprasijums
     pq1 = (pc1 - b_pieprasijums) / k_pieprasijums
 
-    e = ((pq1 - pq0) / pq0) / ((pc1 - pc0) / pc0)
-    if abs(e) == 1:
-        print("Elastiba = |1|, tatad pieprasijums ir vienadots")
-    elif abs(e) < 1:
-        print("Elastiba =", abs(e), ", pieprasijums ir neelastigs")
-    else:
-        print("Elastiba =", abs(e), ", pieprasijums ir elastigs")
+    elastiba(pc0, pc1, pq0, pq1)
 
     # funkciju punkti
     x_pieprasijums = np.array([0, x * 2])

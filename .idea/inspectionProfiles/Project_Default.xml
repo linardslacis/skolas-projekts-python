@@ -5,6 +5,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="testi.funkciju_testi.Algas" />
+          <option value="main.unittest.TestCase" />
         </list>
       </option>
     </inspection_tool>
