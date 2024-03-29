@@ -87,17 +87,17 @@ def hipotekara_maksajuma_aprekins(kopienak, dsti, summa, termins, iemaksa, prlik
         return False
 
 
-def dsti_aprekins(kk, kopienakums, apgadajamie):
-    if kk <= 0.7:
-        return 0.1
-    elif 0.7 < kk <= 1:
-        return 0.2
-    elif 1 < kk <= 2.5:
+def dsti_aprekins(kopienakums, apgadajamie):
+    kk = kopienakums / 700
+    if 1 < kk <= 2.5:
         dsti = (kopienakums - (492 + 700 * 0.3 * apgadajamie)) / kopienakums
         if apgadajamie == 0:
             return min(0.4, dsti)
         elif dsti >= 0.4 and apgadajamie != 0:
-            return 0.35 if 1.8 < kk <= 2.5 else 0.3
+            if 1.8 < kk <= 2.5:
+                return 0.35
+            else:
+                return 0.3
         else:
             return dsti
     elif kk >= 2.5:
@@ -171,15 +171,13 @@ def hipotekarais(apgadajamie, mnetto):
                                   lambda x: x in [0, 1],
                                   "Ludzu, ievadiet derigu opciju (0 vai 1).")
     if lidzaizn == 1:
-        print("Ievadiet lidzaiznemeja neto algu:")
-        lidzaizn_alga = ievades_validacija("Ievadiet neto algu: ",
+        lidzaizn_alga = ievades_validacija("Ievadiet lidzaiznemeja neto algu:",
                                            lambda x: x > 0,
                                            "Ludzu, ievadiet derigu algu.")
     else:
         lidzaizn_alga = 0
 
     kopienakums = mnetto + lidzaizn_alga
-    kk = kopienakums / 700
 
     match lidzaizn:
         case 0:
@@ -191,7 +189,7 @@ def hipotekarais(apgadajamie, mnetto):
                 print("Jūsu ienakumi ir parak mazi, lai Jūs varētu atļauties ņemt kredītu!")
                 return
 
-    dsti = dsti_aprekins(kk, kopienakums, apgadajamie)
+    dsti = dsti_aprekins(kopienakums, apgadajamie)
 
     # Hipotekaras aizdevuma detaļu ievade un aprekins
     while True:
@@ -205,7 +203,7 @@ def hipotekarais(apgadajamie, mnetto):
                                      lambda x: 0.1 * summa < x < 0.5 * summa,
                                      "Ludzu, ievadiet derigu pirmo iemaksu.")
 
-        prlikme = ievades_validacija("Ievadiet % likmi ka decimālu: ",
+        prlikme = ievades_validacija("Ievadiet % likmi ka decimāldalu: ",
                                      lambda x: -0.1 < x < 1,
                                      "Ludzu, ievadiet derigu procentu likmi.")
 
@@ -217,13 +215,12 @@ def hipotekarais(apgadajamie, mnetto):
 def augstaka_cena():
     while True:
         try:
-            maxx = float(input("Ievadiet funckijas lielako cenu: "))
+            maxx = float(input("Ievadiet funkcijas lielako cenu: "))
         except ValueError:
             print("Ievadita nepareiza vertiba")
         else:
             if maxx <= 0:
                 print("Augstaka cena nevar but vienada vai mazaka par 0")
-                continue
             else:
                 return maxx
 
@@ -295,12 +292,11 @@ def cenas(m2, t, a, b, c):
 def elastiba(v0, v1, q0, q1):
     el = ((q1 - q0) / q0) / ((v1 - v0) / v0)
     if abs(el) == 1:
-        print("Elastiba = |1|, pieprasijums ir vienadots")
+        return print("Elastiba = |1|, pieprasijums ir vienadots")
     elif abs(el) < 1:
-        print("Elastiba =", round(abs(el)), ", pieprasijums ir neelastigs")
+        return print("Elastiba =", round(abs(el), 3), ", pieprasijums ir neelastigs")
     else:
-        print("Elastiba =", round(abs(el)), ", pieprasijums ir elastigs")
-    return None
+        return print("Elastiba =", round(abs(el), 3), ", pieprasijums ir elastigs")
 
 
 def elastibas_aprekins():
@@ -412,28 +408,38 @@ def pagarinajums_pa_labi(k, l1, h, xlim):
 
 
 def lidzsvars_aprekins():
-    x11 = ievades_validacija("Ievadiet daudzumu pirmajam pieprasījuma punktam: ",
-                             lambda q: float(q),
-                             "nepareizi")
-    y11 = ievades_validacija("Ievadiet atbilstošo cenu: ",
-                             lambda q: float(q),
-                             "")
-    x12 = ievades_validacija("Ievadiet daudzumu otrajam pieprasījuma punktam: ",
-                             lambda q: float(q),
-                             "")
+    while True:
+        x11 = ievades_validacija("Ievadiet daudzumu pirmajam pieprasījuma punktam: ",
+                                 lambda q: float(q),
+                                 "nepareizi")
+        y11 = ievades_validacija("Ievadiet atbilstošo cenu: ",
+                                 lambda q: float(q),
+                                 "")
+        x12 = ievades_validacija("Ievadiet daudzumu otrajam pieprasījuma punktam: ",
+                                 lambda q: float(q),
+                                 "")
+        if x11 != x12:
+            break
+        else:
+            print("Daudzuma punktiem nevar but vienadas vertibas!")
     y12 = ievades_validacija("Ievadiet atbilstošo cenu: ",
                              lambda q: float(q),
                              "")
 
-    x21 = ievades_validacija("Ievadiet daudzumu pirmajam piedavājuma punktam: ",
-                             lambda q: float(q),
-                             "")
-    y21 = ievades_validacija("Ievadiet atbilstošo cenu: ",
-                             lambda q: float(q),
-                             "")
-    x22 = ievades_validacija("Ievadiet daudzumu otrajam piedavājuma punktam: ",
-                             lambda q: float(q),
-                             "")
+    while True:
+        x21 = ievades_validacija("Ievadiet daudzumu pirmajam piedavājuma punktam: ",
+                                 lambda q: float(q),
+                                 "")
+        y21 = ievades_validacija("Ievadiet atbilstošo cenu: ",
+                                 lambda q: float(q),
+                                 "")
+        x22 = ievades_validacija("Ievadiet daudzumu otrajam piedavājuma punktam: ",
+                                 lambda q: float(q),
+                                 "")
+        if x21 != x22:
+            break
+        else:
+            print("Daudzuma punktiem nevar but vienadas vertibas!")
     y22 = ievades_validacija("Ievadiet atbilstošo cenu: ",
                              lambda q: float(q),
                              "")
