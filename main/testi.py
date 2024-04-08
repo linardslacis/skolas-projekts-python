@@ -131,3 +131,39 @@ class TestPagarinajumsPaLabi(unittest.TestCase):
 
     def test_l1_nav_2lim(self):
         self.assertEqual(pagarinajums_pa_labi(1, 8, 3, 2), -1)
+
+
+class TestSalidzinasana(unittest.TestCase):
+    def test_t_smaller_than_zero(self):
+        self.assertEqual(salidzinasana(-1, 5), 1)
+
+    def test_t_bigger_than_v(self):
+        self.assertEqual(salidzinasana(2, 1), 1)
+        self.assertEqual(salidzinasana(2, 0.5), 1)
+        self.assertEqual(salidzinasana(2.4, 0.5), 1)
+        self.assertEqual(salidzinasana(-1, -2), 1)
+
+    def test_t_equal_zero(self):
+        self.assertEqual(salidzinasana(0, 1), 1)
+
+    def test_return_zero(self):
+        self.assertEqual(salidzinasana(1, 2), 0)
+
+
+class TestAugstakaCenaFunction(unittest.TestCase):
+
+    @patch('builtins.input', side_effect=["100"])
+    def test_augstaka_cena_valid_input(self, _mock_input):
+        # Test case: Valid input
+        result = augstaka_cena()
+        self.assertEqual(result, 100)
+
+    @patch('builtins.input', side_effect=["abc", "-10", "0", "100"])
+    def test_augstaka_cena_invalid_inputs(self, _mock_input):
+        # Test case: Invalid inputs
+        with patch('builtins.print') as mock_print:
+            result = augstaka_cena()
+            self.assertEqual(result, 100.0)
+            self.assertEqual(mock_print.call_count, 3)
+            mock_print.assert_any_call("Ievadita nepareiza vertiba")
+            mock_print.assert_any_call("Augstaka cena nevar but vienada vai mazaka par 0")
