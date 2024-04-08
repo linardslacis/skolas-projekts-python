@@ -162,7 +162,7 @@ def ienakumu_aprekins(apgadajamie):
     print("Kopa nodokli ir", round(nodokli), ".")
     mnetto = mbrutto - iin - vsaoi
     print("Jusu neto alga ir", round(mnetto), ".")
-    return mnetto
+    return round(mnetto)
 
 
 def hipotekarais(apgadajamie, mnetto):
@@ -183,11 +183,11 @@ def hipotekarais(apgadajamie, mnetto):
         case 0:
             if mnetto < 850:
                 print("Jūsu ienakumi ir parak mazi, lai Jūs varētu atļauties ņemt kredītu!")
-                return
+                return None
         case 1:
             if kopienakums < 1200:
                 print("Jūsu ienakumi ir parak mazi, lai Jūs varētu atļauties ņemt kredītu!")
-                return
+                return None
 
     dsti = dsti_aprekins(kopienakums, apgadajamie)
 
@@ -200,7 +200,7 @@ def hipotekarais(apgadajamie, mnetto):
                                      lambda x: x > 0,
                                      "Ludzu, ievadiet derigu kredita terminu gados.")
         iemaksa = ievades_validacija("Ievadiet pirmo iemaksu (min 10% no kredita summas): ",
-                                     lambda x: 0.1 * summa < x < 0.5 * summa,
+                                     lambda x: 0.1 * summa <= x <= 0.5 * summa,
                                      "Ludzu, ievadiet derigu pirmo iemaksu.")
 
         prlikme = ievades_validacija("Ievadiet % likmi ka decimāldalu: ",
@@ -209,6 +209,7 @@ def hipotekarais(apgadajamie, mnetto):
 
         if hipotekara_maksajuma_aprekins(kopienakums, dsti, summa, termins, iemaksa, prlikme):
             break
+        return None
 
 
 # elastiba dazadam funckijam
@@ -268,13 +269,13 @@ def cenas(m2, t, a, b, c):
     while True:
         while True:
             c2 = ievades_validacija("Lai aprekinatu elastibu, ievadiet pirmo cenu: ",
-                                    lambda q: q == float,
+                                    lambda q: float(q),
                                     "Ievadiet derīgu skaitlisko vērtību!")
             if salidzinasana(c2, m2) == 0 and nules_parbaude(c2, t, a, b, c) == 0:
                 break
         while True:
             c3 = ievades_validacija("Ievadiet otro cenu: ",
-                                    lambda q: q == float,
+                                    lambda q: float(q),
                                     "Ievadiet derīgu skaitlisko vērtību!")
             if salidzinasana(c3, m2) == 0 and nules_parbaude(c3, t, a, b, c) == 0:
                 break
@@ -487,3 +488,4 @@ def lidzsvars_aprekins():
     plt.ylabel("Cena")
     plt.grid()
     plt.show()
+    return None

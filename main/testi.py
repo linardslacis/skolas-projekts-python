@@ -150,6 +150,18 @@ class TestSalidzinasana(unittest.TestCase):
         self.assertEqual(salidzinasana(1, 2), 0)
 
 
+class TestCenas(unittest.TestCase):
+    @patch('builtins.input', side_effect=['1', '2'])  # Mocking user input for testing
+    def test_cenas_case_1(self, mock_input):
+        result = cenas(10, 1, 1, 1, 1)  # Example parameters
+        self.assertEqual(result, (1.0, 2.0))  # Asserting expected result
+
+    @patch('builtins.input', side_effect=['3', '2'])  # Mocking user input for testing
+    def test_cenas_case_2(self, mock_input):
+        result = cenas(10, 2, 1, 1, 1)  # Example parameters
+        self.assertEqual(result, (2.0, 3.0))
+
+
 class TestAugstakaCenaFunction(unittest.TestCase):
 
     @patch('builtins.input', side_effect=["100"])
@@ -167,3 +179,64 @@ class TestAugstakaCenaFunction(unittest.TestCase):
             self.assertEqual(mock_print.call_count, 3)
             mock_print.assert_any_call("Ievadita nepareiza vertiba")
             mock_print.assert_any_call("Augstaka cena nevar but vienada vai mazaka par 0")
+
+
+class TestApgadajamoIevade(unittest.TestCase):
+
+    @patch('builtins.input', side_effect=["5"])
+    def test_ap_ir_None(self, _mock_input):
+        self.assertEqual(apgadajamo_parbaude(None), 5)
+
+    @patch('builtins.input', side_effect=["0"])
+    def test_ap_nav_None_case_nule(self, _mock_input):
+        self.assertEqual(apgadajamo_parbaude(1), 1)
+
+    @patch('builtins.input', side_effect=["1", "2"])
+    def test_ap_nav_None_case_viens(self, _mock_input):
+        self.assertEqual(apgadajamo_parbaude(1), 2)
+
+
+class TestMNettoParbaude(unittest.TestCase):
+    @patch('builtins.input', side_effect=["5"])
+    def test_mn_ir_None(self, _mock_input):
+        self.assertEqual(mnetto_parbaude(None, 0), 5)
+
+    @patch('builtins.input', side_effect=["0", "0", "0", "1", "700"])
+    def test_mn_ir_None_ar_aprekinu(self, _mock_input):
+        self.assertEqual(mnetto_parbaude(None, 0), 486)
+
+    @patch('builtins.input', side_effect=["0"])
+    def test_mn_nav_None_case_nule(self, _mock_input):
+        self.assertEqual(mnetto_parbaude(5, 0), 5)
+
+    @patch('builtins.input', side_effect=["1", "5"])
+    def test_mn_nav_None_case_viens(self, _mock_input):
+        self.assertEqual(mnetto_parbaude(5, 0), 5)
+
+    @patch('builtins.input', side_effect=["1", "0", "0", "0", "1", "700"])
+    def test_mn_ir_None_case_div(self, _mock_input):
+        self.assertEqual(mnetto_parbaude(5, 0), 486)
+
+
+class TestIenakumuAprekins(unittest.TestCase):
+    @patch('builtins.input', side_effect=["0", "0", "1", "700"])
+    def test_case_one(self, _mock_input):
+        self.assertEqual(ienakumu_aprekins(0), 486)
+
+    @patch('builtins.input', side_effect=["1", "2", "2", "35", "160"])
+    def test_case_two(self, _mock_input):
+        self.assertEqual(ienakumu_aprekins(0), 3939)
+
+
+class TestHipotekarais(unittest.TestCase):
+    @patch('builtins.input', side_effect=["0"])
+    def test_hipotekarais_1(self, _mock_input):
+        self.assertEqual(hipotekarais(0, 486), None)
+
+    @patch('builtins.input', side_effect=["1", "400"])
+    def test_hipotekarais_2(self, _mock_input):
+        self.assertEqual(hipotekarais(0, 486), None)
+
+    @patch('builtins.input', side_effect=["0", "10000", "10", "1000", "0.1"])
+    def test_hipotekarais_3(self, _mock_input):
+        self.assertEqual(hipotekarais(0, 1400), None)
