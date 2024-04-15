@@ -30,7 +30,8 @@ def menu_ievads():
 
 def turpinat():
     if not ievades_validacija("Vai vēlaties turpināt? \n"
-                              "Ja jā, ievadiet 1, ja nē, ievadiet 0!",
+                              "Ja jā, ievadiet 1, ja nē, ievadiet 0!"
+                              "\nJusu atbilde: ",
                               lambda x: x in [0, 1],
                               "Ievadiet derīgu opciju (1 vai 2)"):
         sys.exit("Paldies, ka izmantojāt mūsu ekonomikas rīku!")
@@ -38,8 +39,8 @@ def turpinat():
 
 def apgadajamo_parbaude(ap):
     if ap is None:
-        ap = ievades_validacija("Ja Jums ir apgadajams personas, ievadiet skaitlu, "
-                                "ja nav, ievadiet 0 \n",
+        ap = ievades_validacija("Ja Jums ir apgadajams personas, ievadiet to skaitu! "
+                                "Ja tadu nav, ievadiet 0. \nJūsu atbilde: ",
                                 lambda x: x >= 0,
                                 "Ievadiet derīgu naturalo skaitli!")
     else:
@@ -56,7 +57,9 @@ def apgadajamo_parbaude(ap):
 
 def mnetto_parbaude(mn, ap):
     if mn is None:
-        mn = ievades_validacija("Ievadiet savu netto ienākumu summu! Ja zināt tikai brutto ievadiet 0!",
+        mn = ievades_validacija("Ievadiet savu netto ienākumu summu! "
+                                "\nJa zināt tikai brutto ievadiet 0!"
+                                "\nJusu atbilde: ",
                                 lambda x: x >= 0,
                                 "Ievadiet derīgu naturalo skaitli!")
         if mn == 0:
@@ -107,10 +110,12 @@ def dsti_aprekins(kopienakums, apgadajamie):
 def ienakumu_aprekins(apgadajamie):
     neapliekamais = float(0)
 
-    pensionars = ievades_validacija("Ja esat pensionars, ievadiet 1, ja ne, tad 0: ",
+    pensionars = ievades_validacija("Ja esat pensionars, ievadiet 1! Ja ne, tad ievadiet 0!"
+                                    "\nJusu atbilde: ",
                                     lambda x: x in [0, 1],
                                     "Ludzu, ievadiet derigu opciju (0 vai 1).")
-    invalidate = ievades_validacija("Ja esat invalids, ievadiet grupu(1, 2 vai 3), ja ne, ievadiet 0: ",
+    invalidate = ievades_validacija("Ja esat invalids, ievadiet grupu(1, 2 vai 3)! Ja ne, tad ievadiet 0!"
+                                    "\nJusu atbilde: ",
                                     lambda x: x in [0, 1, 2, 3],
                                     "Ludzu, ievadiet derigu opciju (0, 1, 2 vai 3).")
     if invalidate == 1 or invalidate == 2:
@@ -123,18 +128,19 @@ def ienakumu_aprekins(apgadajamie):
         atvieglojums = atvieglojums + 250 * apgadajamie
 
     mbrutto = None
-    match ievades_validacija("Ja Jums ir mēnešalga, ievadiet 1, ja stundas likme - 2",
+    match ievades_validacija("Ja Jums ir mēnešalga, ievadiet 1, ja stundas likme - 2!"
+                             "\nJusu atbilde: ",
                              lambda x: x in [1, 2],
                              "Ludzu, ievadiet derigu opciju (1 vai 2)."):
         case 1:
-            mbrutto = ievades_validacija("Ievadiet savu brutto menesa algu:",
+            mbrutto = ievades_validacija("Ievadiet savu brutto menesa algu: ",
                                          lambda x: x > 0,
                                          "Lūdzu ievadiet derīgu vērtību.")
         case 2:
-            stlikme = ievades_validacija("Ievadiet brutto stundas likmi:",
+            stlikme = ievades_validacija("Ievadiet brutto stundas likmi: ",
                                          lambda x: x > 0,
                                          "Lūdzu ievadiet derīgu vērtību.")
-            stskaits = ievades_validacija("Ievadiet nostradatu stundu skaitu:",
+            stskaits = ievades_validacija("Ievadiet nostradatu stundu skaitu: ",
                                           lambda x: x > 0,
                                           "Lūdzu ievadiet derīgu vērtību.")
             mbrutto = stskaits * stlikme
@@ -142,12 +148,12 @@ def ienakumu_aprekins(apgadajamie):
     if neapliekamais + atvieglojums >= mbrutto:
         neapliekamais = mbrutto
         atvieglojums = 0
-        print("Jūsu nodokļu atvieglojums ir", mbrutto, "€")
+        print("Jūsu nodokļu atvieglojums ir", round(mbrutto), "€.")
     else:
-        print("Jūsu nodokļu atvieglojums ir", neapliekamais + atvieglojums, "€")
+        print("Jūsu nodokļu atvieglojums ir", round(neapliekamais + atvieglojums), "€.")
 
     vsaoi = 0.105 * (mbrutto - neapliekamais - atvieglojums)
-    print("Jusu vsaoi maksajums ir", round(vsaoi), ".")
+    print("Jusu vsaoi maksajums ir", round(vsaoi), "€.")
 
     if mbrutto < 20004:
         ii_nk = 0.2
@@ -156,22 +162,24 @@ def ienakumu_aprekins(apgadajamie):
     else:
         ii_nk = 0.31
     iin = ii_nk * (mbrutto - neapliekamais - atvieglojums)
-    print("Jusu IIN maksajums ir", round(iin), ".")
+    print("Jusu IIN maksajums ir", round(iin), "€.")
 
     nodokli = vsaoi + iin
-    print("Kopa nodokli ir", round(nodokli), ".")
+    print("Kopa nodokli ir", round(nodokli), "€.")
     mnetto = mbrutto - iin - vsaoi
-    print("Jusu neto alga ir", round(mnetto), ".")
+    print("Jusu neto alga ir", round(mnetto), "€.")
     return round(mnetto)
 
 
 def hipotekarais(apgadajamie, mnetto):
 
-    lidzaizn = ievades_validacija("Vai jums ir lidzaiznemejs? Ja ir, ievadiet 1, ja nav, ievadiet 0.",
+    lidzaizn = ievades_validacija("Vai jums ir lidzaiznemejs? "
+                                  "\nJa ir, ievadiet 1! Ja tada nav, ievadiet 0!"
+                                  "\nJusu atbilde: ",
                                   lambda x: x in [0, 1],
                                   "Ludzu, ievadiet derigu opciju (0 vai 1).")
     if lidzaizn == 1:
-        lidzaizn_alga = ievades_validacija("Ievadiet lidzaiznemeja neto algu:",
+        lidzaizn_alga = ievades_validacija("Ievadiet lidzaiznemeja neto algu: ",
                                            lambda x: x > 0,
                                            "Ludzu, ievadiet derigu algu.")
     else:
@@ -304,7 +312,8 @@ def elastibas_aprekins():
     a, b, c = 0, 0, 0
     x = np.linspace(0, augstaka_cena(), 100)
     match ievades_validacija("Izveleties velamo funkciju: \n 1. lineara \n "
-                             "2. kvadratiska \n 3. eksponente \n 4. kvadratsakne(radikals)",
+                             "2. kvadratiska \n 3. eksponente \n 4. kvadratsakne(radikals)"
+                             "\nJusu izvele: ",
                              lambda q: q in [1, 2, 3, 4],
                              "Ievadiet derīgu opciju(1, 2, 3 vai 4"):
         case 1:

@@ -1,8 +1,6 @@
 from menu_paligfunkcijas import *
 
-
 apgadajamie, mnetto = None, None
-
 
 print("Esiet sveicināti multifunkcionalajā ekonomikas rīkā!")
 while True:
@@ -23,3 +21,8 @@ while True:
             lidzsvars_aprekins()
 
     turpinat()
+    print("--------------------------------------------------------------------"
+          "\n"
+          "\n"
+          "\n"
+          "\n")
