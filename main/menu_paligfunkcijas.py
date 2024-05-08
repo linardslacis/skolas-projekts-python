@@ -22,7 +22,7 @@ def menu_ievads():
           "1. - Netto algas aprēķināšana \n"
           "2. - Hipotekārā kredīta kalkulātors \n"
           "3. - Elastības dažādām funckijām \n"
-          "4. - Lidzsvars divam lianeāraām funckijām")
+          "4. - Lidzsvars divam lineārām funckijām")
     return ievades_validacija("Jūsu izvēle:",
                               lambda x: x in [1, 2, 3, 4],
                               "Ievadiet derīgu opciju (1 vai 2)")
@@ -343,8 +343,8 @@ def elastibas_aprekins():
                                    "")
             y = a * x ** 2 + b * x + c
             c0, c1 = cenas(x[99], 2, a, b, c)
-            y0 = a * c0 ** 2 + b * x + c
-            y1 = a * c1 ** 2 + b * x + c
+            y0 = a * c0 ** 2 + b * c0 + c
+            y1 = a * c1 ** 2 + b * c1 + c
             elastiba(c0, c1, y0, y1)
 
         case 3:
